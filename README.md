@@ -51,6 +51,13 @@ compartment_name =
 terraform init && terraform plan && terraform apply -auto-approve
 ```
 
+### Log into created system
+
+```
+terraform show -json | jq -r '.values.root_module.resources[] | select(.name == "oci-ssh-privkey") | .values.content' > ~/.ssh/id_rsa && chmod go-r ~/.ssh/id_rsa
+ssh -i ~/.ssh/id_rsa ubuntu@
+```
+
 ## References
 
 * [Original repo, what was used as base](https://github.com/AmpereComputing/terraform-oci-ampere-tensorflow)
